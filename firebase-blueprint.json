@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile and account information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "VoiceGeneration": {
+      "title": "Voice Generation Record",
+      "description": "History of generated audio clips for the user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "text": { "type": "string" },
+        "character": { "type": "string" },
+        "engine": { "type": "string" },
+        "bgm": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "text", "character"]
+    },
+    "VoiceClone": {
+      "title": "Custom Voice Clone",
+      "description": "Custom cloned voices belonging to a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "sampleUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "userId", "name"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile records indexed by user ID"
+    },
+    "/voice_generations/{generationId}": {
+      "schema": { "$ref": "#/entities/VoiceGeneration" },
+      "description": "History of voice audio generations"
+    },
+    "/voice_clones/{cloneId}": {
+      "schema": { "$ref": "#/entities/VoiceClone" },
+      "description": "User cloned voice metadata"
+    }
+  }
+}
